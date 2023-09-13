@@ -10,7 +10,7 @@ const ListHeader = ({ ListName }) => {
         <h1>{ListName}</h1>
         <div className='button-container'>
             <button className='create'>Add New</button>
-            <button className='signout' onClick={signOut}>SignOut</button>
+            <button className='signout' onClick={signOut}>Sign Out</button>
         </div>
     </div>
   )
