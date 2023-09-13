@@ -1,7 +1,11 @@
+import ListHeader from './components/ListHeader'
+
 const App = () => {
   return (
-    <div>
-      <p> :D </p>
+    <div className='container'>  
+      <div className='app'>
+        <ListHeader ListName={' ✅ Week tasks'}/>
+      </div>
     </div>
   );
 }
