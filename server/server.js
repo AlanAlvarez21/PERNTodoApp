@@ -3,8 +3,11 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const pool = require('./db')
+const { v4: uuidv4 } = require('uuid')
 
 app.use(cors())
+app.use(express.json()) // Ensure this line is before your route handlers.
+
 
 // Get all todos 
 app.get('/todos/:userEmail', async (req, res) => {
@@ -16,5 +19,21 @@ app.get('/todos/:userEmail', async (req, res) => {
         console.error(error)
     }
 })
+
+app.post('/todos', async (req, res) => {
+    const id = uuidv4();
+    const { user_email, title, progress, date } = req.body;
+    console.log(user_email, title, progress, date)
+    try {
+        const newToDo = await pool.query(
+            `INSERT INTO todos(id, user_email, title, progress, date) VALUES($1, $2, $3, $4, $5)`,
+            [id, user_email, title, progress, date]
+        );
+        res.json(newToDo)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+});
 
 app.listen(PORT, ()=> console.log(`Server runing on PORT: ${PORT}`))
