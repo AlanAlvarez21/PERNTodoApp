@@ -21,8 +21,8 @@ const App = () => {
   return (
     <div className='container'>  
       <div className='app'>
-        <ListHeader ListName={' ✅ Week tasks'}/>
-        {sortedTasks?.map((task) => <ListItem key={task.id} task={task} />)}
+        <ListHeader ListName={' ✅ Week tasks'} getData={getData} />
+        {sortedTasks?.map((task) => <ListItem key={task.id} task={task} getData={getData} />)}
       </div>
     </div>
   );
