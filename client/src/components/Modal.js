@@ -10,7 +10,7 @@ function Modal({
     user_email: editMode ? task.user_email : 'alanbrito@yopmail.com',
     title: editMode ? task.title : null,
     progress: editMode ? task.progress : 50,
-    date: editMode ? task.date : new Date(),
+    date: editMode ? new Date(task.date) : new Date(), // Convert date string to Date
   })
 
   const postData = async (e) => {
@@ -80,7 +80,7 @@ function Modal({
             maxLength={30}
             placeholder=" Your task goes here"
             name="title"
-            value={data.title}
+            value={data.title || ''}
             onChange={handleChange}
           />
           <br />
@@ -92,7 +92,7 @@ function Modal({
             min="0"
             max="100"
             name="progress"
-            value={data.progress}
+            value={data.progress || ''}
             onChange={handleChange}
           />
           <input className={mode} type="submit" onClick={editMode ? editData : postData} />
@@ -102,18 +102,16 @@ function Modal({
   )
 }
 
-// Define PropTypes for the props
 Modal.propTypes = {
-  mode: PropTypes.string.isRequired, // Example: string is the expected type
-  setShowModal: PropTypes.func.isRequired, // Example: func is the expected type
-  getData: PropTypes.func.isRequired, // Example: func is the expected type
+  mode: PropTypes.string.isRequired, 
+  setShowModal: PropTypes.func.isRequired, 
+  getData: PropTypes.func.isRequired,
   task: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     user_email: PropTypes.string.isRequired,
     title: PropTypes.string,
     progress: PropTypes.number,
-    date: PropTypes.instanceOf(Date),
-    // Add more PropTypes for other properties if necessary
+    date: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]).isRequired, 
   }),
 };
 

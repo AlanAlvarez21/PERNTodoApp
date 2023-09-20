@@ -39,12 +39,10 @@ function ListItem({ task, getData }) {
 }
 
 
-// Define PropTypes for the props
 ListItem.propTypes = {
   task: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     title: PropTypes.string.isRequired,
-    // Add more PropTypes for other properties if necessary
   }).isRequired,
   getData: PropTypes.func.isRequired,
 };

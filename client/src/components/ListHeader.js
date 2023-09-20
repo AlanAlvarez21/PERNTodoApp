@@ -21,10 +21,9 @@ function ListHeader({ ListName, getData }) {
   )
 }
 
-// Define PropTypes for the props
 ListHeader.propTypes = {
-  ListName: PropTypes.string.isRequired, // Example: string is the expected type
-  getData: PropTypes.func.isRequired, // Example: func is the expected type
+  ListName: PropTypes.string.isRequired, 
+  getData: PropTypes.func.isRequired,
 };
 
 
