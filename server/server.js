@@ -23,23 +23,22 @@ app.get('/todos/:userEmail', async (req, res) => {
 // Create new ToDo 
 app.post('/todos', async (req, res) => {
     const id = uuidv4();
-    const { user_email, title, progress, date } = req.body;
-    console.log(user_email, title, progress, date)
+    const { user_email, title, progress, date } = req.body
     try {
         const newToDo = await pool.query(
             `INSERT INTO todos(id, user_email, title, progress, date) VALUES($1, $2, $3, $4, $5)`,
             [id, user_email, title, progress, date]
-        );
+        )
         res.json(newToDo)
     } catch (error) {
         console.error(error)
     }
-});
+})
 
 // Edit ToDo 
 app.put('/todos/:id', async (req, res) => {
     const { id } = req.params
-    const { user_email, title, progress, date } = req.body;
+    const { user_email, title, progress, date } = req.body
     try {
         const editTodo = await pool.query(
             'UPDATE todos SET user_email = $1, title = $2, progress = $3, date = $4 WHERE id = $5;', 
@@ -60,6 +59,6 @@ app.delete('/todos/:id', async (req, res) => {
     } catch (error) {
         console.error(error)
     }
-});
+})
 
 app.listen(PORT, ()=> console.log(`Server runing on PORT: ${PORT}`))
